@@ -30,6 +30,10 @@ define(['jquery', 'swipe', 'route'], function($, swipe, route){
 
                     }
                 });
+
+            $(".main-video-item").click(function(event){
+                route.redirectS("video", "onlineVideo");
+            });
         }
     }
 });
