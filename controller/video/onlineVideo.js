@@ -14,6 +14,15 @@ define(['jquery', 'route'], function($, route){
             $(host_).load(view, null, this.loadAfter);
         },
         loadAfter: function(){
+            var video = hivideo(document.getElementById("videoPlayer"));
+            video.on("fullscreenchange", function(event){
+                if(video.isFullScreen()){
+                    Fullscreen && Fullscreen.on();
+                }else{
+                    Fullscreen && Fullscreen.off();
+                }
+            });
+
         }
     }
 });

@@ -8,7 +8,7 @@ define(['jquery', 'route'], function($, route){
     return {
         init:function(host){
             host_ = host;
-        },
+    },
         loadBefore: function(){
 
         },

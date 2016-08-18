@@ -105,15 +105,62 @@ define(['jquery'], function($){
                         })
                     }
 
-                    setTimeout(exchange, 500);
+                    setTimeout(exchange, 100);
                 }
             }
         })
     }
 
+    /**
+     * 弹出确认框
+     * @param controller
+     * @param action
+     * @param title
+     * @param content
+     * @param callback
+     */
+    var confirm = function(title, content, callback){
+        if(!callback){
+            if(typeof content === "function"){
+                callback = content;
+                content = title;
+                title = "提示";
+            }
+        }
+        if(typeof content === "object"){
+            content = {url: htmlPath  + "/" + content.controller + "/" + content.action + ".html"};
+        }
+
+        require(["../" + controllerPath + "/dialog/confirm"], function(ctr){
+            if(ctr.init){
+                ctr.init();
+            }
+            if(ctr.execute){
+                var view = htmlPath  + "/dialog/confirm.html";
+                ctr.execute(view, title, content, callback);
+            }
+        });
+    }
+
+    var alarmClock = function(callback){
+        require(["../" + controllerPath + "/common/alarmClock"], function(ctr){
+            if(ctr.init){
+                ctr.init();
+            }
+            if(ctr.execute){
+                var view = htmlPath  + "/common/alarmClock.html";
+                ctr.execute(view, callback);
+            }
+        });
+    }
+
     return {
         init: init,
         redirect: redirect,
-        redirectS: redirectS
+        redirectS: redirectS,
+        dialog: {
+            confirm: confirm
+        },
+        alarmClock:alarmClock
     }
 });

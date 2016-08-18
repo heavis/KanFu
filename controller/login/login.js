@@ -71,6 +71,9 @@ define(['jquery', 'route'], function($, route){
 
             return false;
         });
+        $(host_).on("click", "#goRegist", function(){
+            route.redirect("login", "regist");
+        });
     }
 
 
