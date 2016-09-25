@@ -1,0 +1,14 @@
+<div class="subpage-content l-w-percent100">
+    <div class="subpage-content-desc">
+        <p>
+            {{video.desc}}
+        </p>
+    </div>
+</div>
+
+<div class="subpage-video-space l-w-percent100"></div>
+<div class="subpage-video l-w-percent100">
+    <video class="video-js" id="videoPlayer"  preload ishivideo="true" autoplay="false" isrotate="true" autoHide="true" poster="{{video.picture}}">
+        <source v-bind:src="video.src" />
+    </video>
+</div>

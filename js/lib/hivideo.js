@@ -441,6 +441,13 @@
             self.events[event].push(callback);
         }
     };
+
+    if (typeof define === "function" && define.amd){
+        define("hivideo", [], function(){
+            return hivideo;
+        })
+    }
+
     /**
      * 在DOMContentLoaded事件中初始化hivideo
      */

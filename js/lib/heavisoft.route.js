@@ -33,6 +33,15 @@ define(['jquery'], function($){
             action_ = controller;
         }
 
+        //如果子页面没关闭，需要把子页面关闭了
+        var $main = $("#" + mainHost), $subPage = $("#" + submainHost);
+        if(!$subPage.hasClass("none")){
+            $subPage.addClass("none");
+        }
+        if($main.hasClass("none")){
+            $main.removeClass("none");
+        }
+
         require(["../" + controllerPath + "/" + controller_ + "/" + action_], function(ctr){
             if(ctr.init){
                 ctr.init(document.getElementById(scope_));
@@ -50,21 +59,24 @@ define(['jquery'], function($){
      * @param controller
      * @param action
      */
-    var redirectS = function(scope, controller, action, title){
+    var redirectS = function(scope, controller, action, option){
         var scope_ = scope,
             controller_ = controller,
             action_ = action,
-            title_ = "";
+           option_ = option;
 
         if(!action){ //两个参数：controller, action
             scope_ = submainHost;
             controller_ = scope;
             action_ = controller;
+            option_ = {};
         }else { //三个参数以上，包括三个参数
-            if(!title){ //三个参数
-
+            if(!option_){ //三个参数
+                scope_ = submainHost;
+                controller_ = scope;
+                action_ = controller;
+                option_ = action;
             }else { //四个参数
-                title_ = title;
             }
         }
 
@@ -74,7 +86,7 @@ define(['jquery'], function($){
             }
             if(ctr.execute){
                 var view = htmlPath  + "/common/subpage.html";
-                var contentId = ctr.execute(view, title);
+                var contentId = ctr.execute(view, option_.title || "");
                 if(contentId){
                     var exchange = function(){
                         var $main = $("#" + mainHost), $subPage = $("#" + submainHost);
@@ -96,7 +108,7 @@ define(['jquery'], function($){
 
                         require(["../" + controllerPath + "/" + controller_ + "/" + action_], function(ctr1){
                             if(ctr1.init){
-                                ctr1.init(document.getElementById(contentId));
+                                ctr1.init(document.getElementById(contentId), option_);
                             }
                             if(ctr1.execute){
                                 var view = htmlPath  + "/" + controller_ + "/" + action_ + ".html";

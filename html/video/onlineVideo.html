@@ -27,14 +27,14 @@
 <div class="subpage-content l-w-percent100">
     <div class="subpage-content-desc">
         <p>
-            肌肉有节奏的收缩和放松。上肢可握拳，悬臂，提肩， 使整个上肢肌肉收缩，再放松。下肢可使踝关节背屈， 股四头肌收缩，使整
+            {{video.desc}}
         </p>
     </div>
 </div>
 
 <div class="subpage-video-space l-w-percent100"></div>
 <div class="subpage-video l-w-percent100">
-    <video class="video-js" id="videoPlayer"  ishivideo="true" autoplay="false" isrotate="true" autoHide="true" poster="assets/img/main/video.png">
-        <source src="assets/img/test/video.mp4" />
+    <video class="video-js" id="videoPlayer"  preload ishivideo="true" autoplay="false" isrotate="true" autoHide="true" poster="{{video.picture}}">
+        <source v-bind:src="video.src" />
     </video>
 </div>

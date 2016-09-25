@@ -8,6 +8,10 @@
     width:259px;
     height: 278px;
 }
+/* -------------------------- main ---------------------- */
+.main-section{
+    background: #EEEEEE;
+}
 /* -------------------------- head ---------------------- */
 .main-head{
     height: 46px;
@@ -123,10 +127,18 @@
     background-image: linear-gradient(top,#fff,#EBE4E1)
 }
 /* -------------------------- 视频分类 ---------------------- */
+.main-cgy-section{
+    background: #fff;
+    margin-top: 6px;
+}
+
+.margin-top0{
+    margin-top: 0;
+}
+
 
 .main-cgy-head{
     height: 35px;
-    border-bottom: 1px solid #00C5E6;
     overflow: hidden;
 }
 
@@ -184,17 +196,28 @@
 }
 
 .video-item-bottom .video-item-title{
-    width: 70%;
+    width: 80%;
     float: left;
     line-height: 30px;
-    fong-size: 12px;
+    font-size: 12px;
     padding-left: 5px;
  }
 
 .video-item-bottom .video-item-link{
-    width: 30%;
+    width: 20%;
     float: left;
     text-align: right;
+    font-size: 12px;
+    line-height: 30px;
+
+    .video-item-download, .video-item-clock{
+        color: #494342;
+
+        span{
+            border-left: 1px solid #E3E3E3;
+            padding-left: 5px;
+        }
+    }
 }
 
 .video-item-link img{

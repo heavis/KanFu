@@ -2,7 +2,7 @@
  * 主界面.
  */
 
-define(['jquery', 'swipe', 'route', 'regular'], function($, swipe, route, regular){
+define(['jquery', 'swipe', 'route', 'regular', '../common/global', '../mock/ajax'], function($, swipe, route, regular, global){
     var host_ = undefined;
     //初始化菜单
     function initMenu(){
@@ -12,7 +12,6 @@ define(['jquery', 'swipe', 'route', 'regular'], function($, swipe, route, regula
             if(menu.hasClass("selected")){
                 return;
             }
-            //TODO:设置样式
             var  menuParent = menu.parent();
             //移出之前选中的样式
             menuParent.children(".main-menu.selected").removeClass("selected").each(function(){
@@ -35,6 +34,12 @@ define(['jquery', 'swipe', 'route', 'regular'], function($, swipe, route, regula
             route.redirect("mainContent", "main", menuName);
         });
         $('[menu-nav="onlineVideo"]').trigger("click");
+        //个人中心菜单
+        $("#settings").click(function(event){
+            global.currentUser(function(state, result){
+                route.redirectS("main", "settings", "当前用户" + state && result ? ", " +  result.name : "");
+            });
+        });
     }
     return {
         init:function(host){
@@ -46,7 +51,6 @@ define(['jquery', 'swipe', 'route', 'regular'], function($, swipe, route, regula
         execute: function(view){
             this.loadBefore();
             $(host_).load(view, null, this.loadAfter);
-            //this.loadAfter();
         },
         loadAfter: function(){
             initMenu();

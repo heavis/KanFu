@@ -2,7 +2,7 @@
  * 子页面公共容器.
  */
 define(['jquery', 'route'], function($, route){
-    var subContentHost_ = "subPageConent";
+    var subContentHost_ = "subPageConent", host_;
     var title_ = "";
 
     return {
@@ -21,8 +21,7 @@ define(['jquery', 'route'], function($, route){
         },
         loadAfter: function(){
             if(title_){
-                var selector = "#" + host_ + " .spage-head-title span";
-                $(selector).text(title_);
+                $(host_).find(".spage-head-title span").text(title_);
             }
         }
     }

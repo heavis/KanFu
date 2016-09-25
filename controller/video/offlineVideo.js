@@ -17,17 +17,16 @@ define(['jquery', 'route', '../common/config', 'hivideo'], function($, route, co
             $(host_).load(view, null, this.loadAfter);
         },
         loadAfter: function(){
-            $.ajax(config.SERVER_HOST + config.USER_GET_VIDEO + "&id=" + option_.videoId).done(function(result){
-                if(result){
-                    //vue加载数据
-                    var vue = new Vue({
-                        el: "#subPageConent",
-                        data: {
-                            video: result
-                        }
-                    });
-                }
-            });
+            var video = option_.video;
+            if(video){
+                //vue加载数据
+                var vue = new Vue({
+                    el: "#subPageConent",
+                    data: {
+                        video: video
+                    }
+                });
+            }
 
             //视频控制
             var video = hivideo(document.getElementById("videoPlayer"));
