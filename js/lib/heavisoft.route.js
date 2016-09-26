@@ -154,7 +154,7 @@ define(['jquery'], function($){
         });
     }
 
-    var alarmClock = function(callback){
+    var setClock = function(callback){
         require(["../" + controllerPath + "/common/alarmClock"], function(ctr){
             if(ctr.init){
                 ctr.init();
@@ -173,6 +173,6 @@ define(['jquery'], function($){
         dialog: {
             confirm: confirm
         },
-        alarmClock:alarmClock
+        setClock:setClock
     }
 });

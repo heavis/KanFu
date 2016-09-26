@@ -218,7 +218,7 @@ define(function(){
         },
         _createTable: function(){
             var cur = this;
-            var sql = "CREATE TABLE IF NOT EXISTS " + cur.name + " (id integer primary key, name text, picture text, src text, desc text, categoryId integer, categoryName text)";
+            var sql = "CREATE TABLE IF NOT EXISTS " + cur.name + " (id integer primary key, name text, picture text, src text, desc text, categoryId integer, categoryName text, clock text)";
             cur.localDb.executeSql(sql, [], function(state, result){
                 console.log("create t_video table " + (state ? "successfully" : "failed"));
             });
@@ -234,7 +234,7 @@ define(function(){
         },
         get: function(callback){
             var cur = this;
-            var sql = 'select id, name, picture, src, desc, categoryId, categoryName from ' + cur.name ;
+            var sql = 'select id, name, picture, src, desc, categoryId, categoryName, clock from ' + cur.name ;
             cur.localDb.executeSql(sql, [], function(state, result){
                 var arr = [];
                 if(state){
@@ -247,12 +247,22 @@ define(function(){
                             src: result.rows.item(i).src,
                             desc: result.rows.item(i).desc,
                             categoryId: result.rows.item(i).categoryId,
-                            categoryName: result.rows.item(i).categoryName
+                            categoryName: result.rows.item(i).categoryName,
+                            clock: result.rows.item(i).clock
                         })
                     }
                 }
                 if(callback){
                     callback(state, arr);
+                }
+            });
+        },
+        updateClock: function(time, id, callback){
+            var cur = this;
+            var sql = 'update ' + cur.name + ' set clock = ? where id = ?';
+            cur.localDb.executeSql(sql, [time, id], function(state, result){
+                if(callback){
+                    callback(state, result);
                 }
             });
         }

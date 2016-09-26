@@ -18,6 +18,14 @@ define(['jquery', 'swipe', 'route', 'sqlite'], function($, swipe, route, sqlite)
                         playVideo: function(video){
                             route.redirectS("video", "offlineVideo", {title: video.name, video: video});
                             //window.plugins.streamingMedia.playVideo(video.src, {orientation: 'landscape'});
+                        },
+                        setClock: function(video){
+                            route.setClock(function(result){
+                                if(result){
+                                    var videoTable = sqlite.video();
+                                    videoTable.updateClock(result.hour + ":" + result.minute, video.id);
+                                }
+                            });
                         }
                     }
                 });
