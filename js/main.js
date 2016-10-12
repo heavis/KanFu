@@ -7,6 +7,18 @@
 //6.播放本地视频插件https://github.com/nchutchind/cordova-plugin-streaming-media
 
 
+/**
+ * 页面切换：
+ *      在线视频、本地视频、我的康复，页面切换时原来页面需要缓存。页面下拉支持刷新
+ * 在线视频：
+ *      按照康复类别显示视频列表，视频可在线播放，也支持下载。已经下载过的视频需要表示出是否已下载。能明显区分视频下载状态。
+ * 本地视频：
+ *      支持播放和设置闹钟
+ * 我的康复：
+ *      显示设置过闹钟的视频，支持播放和设置闹钟
+ *  更多：
+ */
+
 requirejs.config({
     paths:{
         "jquery" : "lib/jquery",
@@ -20,7 +32,8 @@ requirejs.config({
         "hivideo": "lib/hivideo",
         "validate": "lib/jquery.validate.min",
         "message_zh": "lib/messages_zh.min",
-        "mockjax": "lib/jquery.mockjax.min"
+        "mockjax": "lib/jquery.mockjax.min",
+        "mobiscroll": "lib/mobiscroll.min"
     }
 });
 

@@ -5,33 +5,54 @@
   max-width: 640px;
 
   .clock-wrap{
-    background: rgba(225, 224, 221, 0.4);
+    background: rgba(42, 36, 39, 0.7);
     height: 100%;
     width: 100%;
     position: absolute;
     z-index: 10000;
+    -webkit-animation-name: showBg;
+    -moz-animation-name: showBg;
+    -o-animation-name: showBg;
+    animation-name: showBg;
+    -webkit-animation-duration: 500ms;
+    -moz-animation-duration: 500ms;
+    -o-animation-duration: 500ms;
+    animation-duration: 500ms;
   }
 
   .clock-window{
-    width: 100%;
-    height: 237px;
+    background: #fff;
+    width: 95%;
+    height: 206px;
     z-index: 10010;
-    left: 0;
     top: 50%;
+    left: 50%;
+    border-radius: 6px;
+    border-bottom: 1px solid #ddd;
     position: absolute;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    transform: translateY(-50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    -webkit-animation-name: showWindow;
+    -moz-animation-name: showWindow;
+    -o-animation-name: showWindow;
+    animation-name: showWindow;
+    -webkit-animation-duration: 500ms;
+    -moz-animation-duration: 500ms;
+    -o-animation-duration: 500ms;
+    animation-duration: 500ms;
 
     .clock-head{
       height: 38px;
       width: 100%;
-      background: #495F68;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
 
       .clock-title{
-        color: #fff;
+        color: #000;
         font-weight: bold;
         font-size: 14px;
         line-height: 38px;
@@ -41,12 +62,13 @@
     }
 
     .clock-middle{
-      height: 151px;
+      height: 120px;
       background: #fff;
       position: relative;
 
       .clock-content-wrap{
         position: absolute;
+        display: none;
         left: 50%;
         top: 50%;
         -webkit-transform: translate(-50%, -50%);
@@ -81,19 +103,25 @@
     }
     .clock-bottom{
       height: 48px;
+      border-top: 1px solid #ddd;
+      overflow:hidden;
     }
 
     .clock-btn{
-      background: #00C5E6;
       height: 48px;
       font-size: 14px;
       text-align: center;
       line-height: 48px;
       cursor: pointer;
+      color: #888;
     }
 
     .clock-btn-selected{
-      background: #00AEC8;
+      border-left: 1px solid #eee;
+      color: #000;
     }
   }
 }
+
+
+

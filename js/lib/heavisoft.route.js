@@ -41,7 +41,6 @@ define(['jquery'], function($){
         if($main.hasClass("none")){
             $main.removeClass("none");
         }
-
         require(["../" + controllerPath + "/" + controller_ + "/" + action_], function(ctr){
             if(ctr.init){
                 ctr.init(document.getElementById(scope_));

@@ -32,7 +32,7 @@
         </nav>
     </div>
 </div>
-<div class="l-w-percent100 main-cgy-section" v-for="category in categories">
+<div class="l-w-percent100 main-cgy-section" v-for="category in categories" v-cloak>
     <div class="main-cgy-head l-w-percent100">
         <div class="main-cgy-icon">
             <img :src="category.img">
@@ -50,11 +50,22 @@
                 <img :src="video.picture">
             </div>
             <div class="video-item-bottom">
+                <div class="video-item-progress" v-bind:class="video.downloadState === 1 ? '' : 'none'">
+                    <progress id="dldProgress{{video.id}}" value="0" max="100"></progress>
+                </div>
                 <div class="video-item-title">
                     <span>{{video.name}}</span>
                 </div>
-                <div class="video-item-link">
-                    <div class="video-item-download" @click="downloadVideo(category.id, video.id)"><span>下载</span></div>
+                <div class="video-item-link" v-bind:class="videoDownloadDState(video.downloadState)">
+                    <template v-if="!video.downloadState">
+                        <div class="video-item-download" @click="downloadVideo(category.id, video.id)"><span>下载</span></div>
+                    </template>
+                    <template v-if="video.downloadState === 1">
+                        <div class="video-item-download"><span class="handling">下载中</span></div>
+                    </template>
+                    <template v-if="video.downloadState === 2">
+                        <div class="video-item-download" ><span class="disable">已下载</span></div>
+                    </template>
                 </div>
             </div>
         </div>

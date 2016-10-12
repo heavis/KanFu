@@ -3,7 +3,7 @@
  */
 define(function(){
     return {
-        SERVER_HOST: "http://192.168.1.2:8080",
+        SERVER_HOST: "http://192.168.0.100:8080",
         URL_LOGIN:"/heavisoft.kanfu.server/kanfu/user?action=login",
         URL_USER_VALIDATE: "/heavisoft.kanfu.server/kanfu/user?action=validate",
         URL_USER_REGIST: "/heavisoft.kanfu.server/kanfu/user?action=add",

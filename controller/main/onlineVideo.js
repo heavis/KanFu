@@ -2,7 +2,7 @@
  * 在线视频
  */
 
-define(['jquery', 'swipe', 'route', '../common/config','sqlite',  '../mock/ajax'], function($, swipe, route, config, sqlite){
+define(['jquery', 'swipe', 'route', '../common/config','sqlite',  '../mock/ajax', 'mobiscroll'], function($, swipe, route, config, sqlite){
     function loadData(){
         //动态数据展示
         $.post(config.SERVER_HOST +  config.USER_GET_CAGETORY).done(function(result){
@@ -62,13 +62,15 @@ define(['jquery', 'swipe', 'route', '../common/config','sqlite',  '../mock/ajax'
                                     }
                                 });
                                 if(selectedVideo){
+                                    selectedVideo.downloadState = 1;
                                     var ft = new FileTransfer();
                                     ft.onprogress = function(progressEvent) {
                                         if (progressEvent.lengthComputable) {
                                             var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
-                                            SpinnerDialog.show("", "已下载" + perc + "%");
+                                            $('#dldProgress' + videoId).mobiscroll('setVal', perc);
+                                            //SpinnerDialog.show("", "已下载" + perc + "%");
                                         } else {
-                                            SpinnerDialog.show("", "正在下载...");
+                                            //SpinnerDialog.show("", "正在下载...");
                                         }
                                     };
                                     var videoPath = cordova.file.dataDirectory + "/" + cateogryId + "/" + videoId + ".mp4",
@@ -80,7 +82,8 @@ define(['jquery', 'swipe', 'route', '../common/config','sqlite',  '../mock/ajax'
                                             new FileTransfer().download(pic, videoPicPath);
                                             ft.download(result.src, videoPath, function(entry){
                                                 //下载完成
-                                                SpinnerDialog.hide();
+                                                selectedVideo.downloadState = 2;
+                                                //SpinnerDialog.hide();
                                                 //下载完成后，需要把视频信息保存到本地数据库中
                                                 result.src = videoPath;
                                                 result.picture = videoPicPath;
@@ -90,7 +93,11 @@ define(['jquery', 'swipe', 'route', '../common/config','sqlite',  '../mock/ajax'
                                                     result.categoryName = cgyName;
                                                 }
                                                 var videoTable = sqlite.video();
-                                                videoTable.insert(result);
+                                                videoTable.getOne("serverId = " + videoId, function(state, arr){
+                                                    if(state && arr.length === 0){
+                                                        videoTable.insert(result);
+                                                    }
+                                                })
                                             }, function(error){
                                                 SpinnerDialog.hide();
                                             }, true);
@@ -101,11 +108,49 @@ define(['jquery', 'swipe', 'route', '../common/config','sqlite',  '../mock/ajax'
                                 }
                             }
                         });
+                    },
+                    videoDownloadDState: function(flag){
+                        if(!flag){
+                            return "";
+                        }else if(flag > 1){
+                            return "disable";
+                        }else{
+                            return "";
+                        }
+                    },
+                    isDownloading: function(flag){
+                        return flag === 1;
                     }
                 }
             });
+            //设置视频的下载状态
+            var videoTable = sqlite.video();
+            videoTable.get(function(state, result){
+                if(state){
+                    var downloadedIds = [];
+                    result.forEach(function(v){
+                        downloadedIds.push(v.serverId);
+                    });
+                    vue.categories.forEach(function(c){
+                        c.videos.forEach(function(v){
+                            if(downloadedIds.indexOf(v.id) !== -1){
+                                v.downloadState = 2;
+                            }
+                        })
+                    });
+                }
+            });
+
+            vue.$nextTick(function(){
+                $(host_).data(view_, $(host_).children());
+            });
+            //转换所有进度条
+            var moiInst =$("progress").mobiscroll();
+            moiInst.progress && moiInst.progress();
         })
     }
+
+    var host_, view_;
 
     return {
         init:function(host){
@@ -115,8 +160,15 @@ define(['jquery', 'swipe', 'route', '../common/config','sqlite',  '../mock/ajax'
 
         },
         execute: function(view){
+            view_ = view;
             this.loadBefore();
-            $(host_).load(view, null, this.loadAfter);
+            var cache = $(host_).data(view);
+            if(cache){
+                $(host_).children().detach();
+                $(host_).append(cache);
+            }else{
+                $(host_).load(view, null, this.loadAfter);
+            }
         },
         loadAfter: function(){
             var bullets = document.getElementById('position').getElementsByTagName('li');

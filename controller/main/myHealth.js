@@ -27,7 +27,7 @@ define(['jquery', 'swipe', 'route', 'sqlite'], function($, swipe, route, sqlite)
             });
         });
     }
-
+    var host_, view_;
     return {
         init:function(host){
             host_ = host;
@@ -36,6 +36,7 @@ define(['jquery', 'swipe', 'route', 'sqlite'], function($, swipe, route, sqlite)
 
         },
         execute: function(view){
+            view_ = view;
             this.loadBefore();
             $(host_).load(view, null, this.loadAfter);
         },

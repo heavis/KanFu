@@ -218,23 +218,22 @@ define(function(){
         },
         _createTable: function(){
             var cur = this;
-            var sql = "CREATE TABLE IF NOT EXISTS " + cur.name + " (id integer primary key, name text, picture text, src text, desc text, categoryId integer, categoryName text, clock text)";
+            var sql = "CREATE TABLE IF NOT EXISTS " + cur.name + " (id integer primary key,serverId integer, name text, picture text, src text, desc text, categoryId integer, categoryName text, clock text)";
             cur.localDb.executeSql(sql, [], function(state, result){
                 console.log("create t_video table " + (state ? "successfully" : "failed"));
             });
         },
         insert: function(video, callback){
             var cur = this;
-            var sql = 'insert into ' + cur.name + '(name, picture, src, desc, categoryId, categoryName) values(?, ?, ?, ?, ?, ?)';
-            cur.localDb.executeSql(sql, [ video['name'], video['picture'], video["src"], video["desc"], video["categoryId"], video['categoryName'] || ""], function(state, result){
+            var sql = 'insert into ' + cur.name + '(serverId, name, picture, src, desc, categoryId, categoryName) values(?, ?, ?, ?, ?, ?, ?)';
+            cur.localDb.executeSql(sql, [ video['id'], video['name'], video['picture'], video["src"], video["desc"], video["categoryId"], video['categoryName'] || ""], function(state, result){
                 if(callback){
                     callback(state, result);
                 }
             });
         },
-        get: function(callback){
+        executeQuery: function(sql, callback){
             var cur = this;
-            var sql = 'select id, name, picture, src, desc, categoryId, categoryName, clock from ' + cur.name ;
             cur.localDb.executeSql(sql, [], function(state, result){
                 var arr = [];
                 if(state){
@@ -242,6 +241,7 @@ define(function(){
                     for(i = 0; i < len; i++){
                         arr.push({
                             id: result.rows.item(i).id,
+                            serverId: result.rows.item(i).serverId,
                             name: result.rows.item(i).name,
                             picture: result.rows.item(i).picture,
                             src: result.rows.item(i).src,
@@ -256,6 +256,16 @@ define(function(){
                     callback(state, arr);
                 }
             });
+        },
+        get: function(callback){
+            var cur = this;
+            var sql = 'select id, serverId, name, picture, src, desc, categoryId, categoryName, clock from ' + cur.name ;
+            cur.executeQuery(sql, callback);
+        },
+        getOne: function(where, callback){
+            var cur = this;
+            var sql = 'select id, serverId, name, picture, src, desc, categoryId, categoryName, clock from ' + cur.name + ' where ' + where ;
+            cur.executeQuery(sql, callback);
         },
         updateClock: function(time, id, callback){
             var cur = this;

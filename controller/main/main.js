@@ -2,10 +2,15 @@
  * 主界面.
  */
 
-define(['jquery', 'swipe', 'route', 'regular', '../common/global', '../mock/ajax'], function($, swipe, route, regular, global){
+define(['jquery', 'swipe', 'route', 'regular', '../common/global', 'mobiscroll',  '../mock/ajax'], function($, swipe, route, regular, global, mobiscroll){
     var host_ = undefined;
     //初始化菜单
     function initMenu(){
+        //mobiscroll设置
+        mobiscroll.settings = {
+            theme: 'android-holo-light',  // Specify theme like: theme: 'ios' or omit setting to use default
+            lang: 'zh'                    // Specify language like: lang: 'pl' or omit setting to use default
+        };
         //导航菜单
         $(".menu-wrap").on("click", ".main-menu", function(event){
             var menu = $(this);
