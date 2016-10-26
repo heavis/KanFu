@@ -1,0 +1,10 @@
+<div class="main-education l-w-percent100">
+    <div class="main-education-item" v-for="edu in educations" @click="openEducationDetail(edu)">
+        <div class="education-item-image float" >
+            <img :src="edu.picture">
+        </div>
+        <div class="education-item-title float">
+            <span>{{edu.title}}</span>
+        </div>
+    </div>
+</div>

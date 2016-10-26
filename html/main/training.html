@@ -1,0 +1,19 @@
+<div class="l-w-percent100 main-cgy-section" v-for="category in categories" v-cloak>
+    <div class="main-cgy-head l-w-percent100">
+        <div class="main-cgy-title">
+            <span>{{category.name}}</span>
+        </div>
+    </div>
+    <div class="main-video-wrapper l-w-percent100">
+        <div class="main-video-item l-padding5 l-col-2" v-for="video in category.videos">
+            <div class="video-item-image" @click="playVideo(video)">
+                <img :src="video.picture">
+            </div>
+            <div class="video-item-bottom">
+                <div class="video-item-title">
+                    <span>{{video.name}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

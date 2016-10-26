@@ -1,0 +1,37 @@
+<div class="l-w-percent100 main-cgy-section" v-for="category in categories" v-cloak>
+    <div class="main-cgy-head l-w-percent100">
+        <div class="main-cgy-title">
+            <span>{{category.name}}</span>
+        </div>
+    </div>
+    <div class="main-video-wrapper l-w-percent100">
+        <div class="main-clock-item l-padding5 l-w-percent100" v-for="video in category.videos">
+            <div class="clock-image-wrap">
+                <img :src="video.picture">
+            </div>
+            <div class="clock-content">
+                <div class="content-title">
+                    <span>{{video.name}}</span>
+                </div>
+                <div class="content-time">
+                    <template v-if="!video.clock">
+                        <span>未设置闹钟</span>
+                    </template>
+                    <template v-if="video.clock">
+                        <span>{{video.clock}}</span>
+                    </template>
+                </div>
+            </div>
+            <div class="content-operation">
+                <div id="videoItemS{{video.id}}" class="opt-btn">
+                    <span>闹钟</span>
+                </div>
+                <template v-if="video.clock">
+                    <div class="opt-btn" @click="cancelClock(video)">
+                        <span>取消</span>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+</div>

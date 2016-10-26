@@ -10,7 +10,7 @@ define(['jquery', 'swipe', 'route', '../common/config','sqlite',  '../mock/ajax'
                var cgy = undefined;
 
                 vue.categories.forEach(function(c){
-                    if(id == c._id){
+                    if(id == c.id){
                         cgy = c;
                         return false;
                     }
@@ -88,9 +88,9 @@ define(['jquery', 'swipe', 'route', '../common/config','sqlite',  '../mock/ajax'
                                                 result.src = videoPath;
                                                 result.picture = videoPicPath;
 
-                                                var cgyName = undefined;
-                                                if((cgyName = getCategory(cateogryId))){
-                                                    result.categoryName = cgyName;
+                                                var cgy = undefined;
+                                                if((cgy = getCategory(cateogryId))){
+                                                    result.categoryName = cgy.name;
                                                 }
                                                 var videoTable = sqlite.video();
                                                 videoTable.getOne("serverId = " + videoId, function(state, arr){
@@ -103,8 +103,6 @@ define(['jquery', 'swipe', 'route', '../common/config','sqlite',  '../mock/ajax'
                                             }, true);
                                         }
                                     });
-
-
                                 }
                             }
                         });

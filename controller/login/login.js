@@ -13,68 +13,7 @@ define(['jquery', 'route', 'sqlite', '../common/config', 'validate', 'message_zh
     //});
     //submit按钮注册事件
     var loadAfter = function() {
-        //提交表单
-        //$(host_).on("submit", "#loginForm", function() {
-        //    var user = $.getFormJson(document.getElementById("loginForm"))
-        //    //1.验证逻辑
-        //    //2.使用wl和password链接服务器登录
-        //    var url = "http://192.168.1.12:8080/heavisoft.kanfu.server/kanfu/user?action=login";
-        //    $.post(url, {data: JSON.stringify(user)}).done(function (result) {
-        //            if (!result) {
-        //                navigator.notification.alert("登录失败了", "", "登录提示", "知道了");
-        //                return;
-        //            }
-        //
-        //            if (!result.result) {
-        //                navigator.notification.alert(result.data, "", "登录提示", "知道了");
-        //                return;
-        //            }
-        //            var loginSuccessCallback = function () {
-        //                //进入主界面
-        //                route.redirect("main", "main");
-        //                //navigator.notification.alert("登录成功.", "", "登录提示", "知道了");
-        //            };
-        //
-        //            if (result && !result.data) {
-        //                //登录成功，不走缓存session
-        //                loginSuccessCallback();
-        //                return;
-        //            }
-        //
-        //            var sessionObj = JSON.parse(result.data);
-        //            var session = sessionObj.session,
-        //                lastModifyTime = sessionObj.lastModifyTime;
-        //            //返回格式：session: '', lastModifyTime: ''
-        //            var userTab = sqlite.user();
-        //            userTab.get(user.username, function (state, result) {
-        //                if (state) {
-        //                    if (session && lastModifyTime) {
-        //                        //更新或者插入session信息到user表
-        //                        userTab[result.length > 0 ? "update" : "insert"]({
-        //                            name: user.username,
-        //                            session: session,
-        //                            lastModifyTime: lastModifyTime
-        //                        });
-        //                        //更新current表
-        //                        var curTab = sqlite.current();
-        //                        curTab.get(function (result, data) {
-        //                            if (result) {
-        //                                curTab[data.length > 0 ? "update" : "insert"]({name: user.username, userId: 0});
-        //                            }
-        //                        });
-        //                    }
-        //                }
-        //
-        //                loginSuccessCallback();
-        //            });
-        //        }
-        //    ).fail(function () { //登录失败
-        //        navigator.notification.alert("登录失败了", "", "登录提示", "知道了");
-        //    });
-        //
-        //    return false;
-        //});
-        $(host_).on("click", "#goRegist", function () {
+        /*$(host_).on("click", "#goRegist", function () {
             route.redirect("login", "regist");
         });
 
@@ -154,7 +93,8 @@ define(['jquery', 'route', 'sqlite', '../common/config', 'validate', 'message_zh
             submitHandler:function(form){
                 submitFormFunc();
             }
-        });
+        }); */
+        route.redirect("main", "main");
     }
 
     return {

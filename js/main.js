@@ -5,7 +5,9 @@
 //4.文件传输插件 cordova plugin add cordova-plugin-file-transfer
 //5.监督提示插件 cordova plugin add cordova-plugin-progress-indicator
 //6.播放本地视频插件https://github.com/nchutchind/cordova-plugin-streaming-media
-
+//7.闹钟设置插件 cordova-plugin-local-notifications   https://github.com/katzer/cordova-plugin-local-notifications
+//8. 后台服务 com.red_folder.phonegap.plugin.backgroundservice http://phonegap-plugins.com/plugins/phpsa/cbsp
+/*//8.声音播放插件 cordova-plugin-media */
 
 /**
  * 页面切换：
@@ -17,6 +19,11 @@
  * 我的康复：
  *      显示设置过闹钟的视频，支持播放和设置闹钟
  *  更多：
+ */
+
+/**
+ * 闹钟设置：
+ * 本地视频都可以设置闹钟，闹钟按每天设置，闹钟可取消。
  */
 
 requirejs.config({

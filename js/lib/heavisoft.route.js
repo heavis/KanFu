@@ -103,7 +103,7 @@ define(['jquery'], function($){
                             if($main.hasClass("none")){
                                 $main.removeClass("none");
                             }
-                        })
+                        });
 
                         require(["../" + controllerPath + "/" + controller_ + "/" + action_], function(ctr1){
                             if(ctr1.init){
@@ -165,6 +165,18 @@ define(['jquery'], function($){
         });
     }
 
+    /**
+     * 当前显示界面是否是主界面
+     * @returns {boolean}
+     */
+    var isShowMainPage = function(){
+        return !$("#" + mainHost).hasClass("none");
+    }
+
+    function closeSubPage(){
+        $(".spage-head-back img").trigger("click");
+    }
+
     return {
         init: init,
         redirect: redirect,
@@ -172,6 +184,8 @@ define(['jquery'], function($){
         dialog: {
             confirm: confirm
         },
-        setClock:setClock
+        setClock:setClock,
+        isShowMainPage: isShowMainPage,
+        closeSubPage: closeSubPage
     }
 });

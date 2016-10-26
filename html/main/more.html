@@ -1,0 +1,10 @@
+<div class="main-personal l-w-percent100">
+    <div class="main-personal-item" v-for="menu in menus" @click="openMenu(menu)">
+        <div class="personal-item-image" >
+            <img :src="menu.picture">
+        </div>
+        <div class="personal-item-title">
+            <span>{{menu.title}}</span>
+        </div>
+    </div>
+</div>
